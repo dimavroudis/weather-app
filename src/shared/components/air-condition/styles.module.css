@@ -1,0 +1,6 @@
+.background {
+  background-image: url("/svgs/abstract-chart.svg");
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

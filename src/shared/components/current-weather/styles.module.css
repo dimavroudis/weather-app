@@ -1,0 +1,26 @@
+.layout {
+  grid-template:
+    "top side" min-content
+    "mid side" 1fr
+    "bottom side" 2fr / 1fr 25%;
+}
+
+.layout .location {
+  grid-area: top;
+}
+
+.layout .status {
+  grid-area: mid;
+}
+
+.layout .icon {
+  grid-area: side;
+}
+
+.layout .icon svg {
+  width: 100%;
+}
+
+.layout .temprature {
+  grid-area: bottom;
+}

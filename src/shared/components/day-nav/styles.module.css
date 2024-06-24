@@ -1,0 +1,18 @@
+.control [data-inactive] {
+  opacity: 0;
+  cursor: default;
+}
+
+.control {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 !important;
+}
+
+.slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
