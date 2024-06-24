@@ -15,7 +15,7 @@ const MenuLink = ({ icon, children, href }: MenuLinkProps) => {
   return (
     <a
       href={href}
-      className=" lowercase text-sm font-semibold flex flex-col items-center justify-center"
+      className="lowercase text-sm font-semibold flex flex-col items-center justify-center"
     >
       <ReactSVG src={`/svgs/${icon}.svg`} />
       {children}

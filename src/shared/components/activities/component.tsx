@@ -14,7 +14,7 @@ const Activities = ({ activities, className = "" }: ActivitiesProps) => {
   return (
     <Widget className={`px-8 ${className}`}>
       <h2 className="flex justify-start items-end gap-1 text-2xl mb-9">
-        <ReactSVG src={"/svgs/heart.svg"} className=" w-8" />
+        <ReactSVG src={"/svgs/heart.svg"} className="w-8" />
         Activities in your area
       </h2>
       <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }}>

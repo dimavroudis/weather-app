@@ -73,7 +73,7 @@ const AirCondition = ({ data, className = "" }: AirConditionProps) => {
         />
         {dayjs(currentTimestamp).format("H:MM Z")}
       </p>
-      <h2 className=" text-sm uppercase font-bold mb-5">Air Conditions</h2>
+      <h2 className="text-sm uppercase font-bold mb-5">Air Conditions</h2>
       <div className="flex flex-col gap-11">
         <InfoBlock
           title="Real Feel"

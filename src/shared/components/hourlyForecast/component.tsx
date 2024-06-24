@@ -58,7 +58,7 @@ const HourlyForecast = ({ title, data: _data, className }: ForecastProps) => {
   return (
     <Widget px="0" className={className}>
       <h2 className="flex items-center gap-1 mb-9 text-sm px-8">
-        <ReactSVG src={"/svgs/clock.svg"} className=" w-4" />
+        <ReactSVG src={"/svgs/clock.svg"} className="w-4" />
         {title}
       </h2>
       <ResponsiveContainer width="100%" height={300}>
