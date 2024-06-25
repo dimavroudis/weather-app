@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Carousel } from "@mantine/carousel";
 import dayjs from "dayjs";
-import { ReactSVG } from "react-svg";
 import ForecastData from "../../types/models/forecast";
-import getWeatherIcon from "../../utils/getWeatherIcon";
+import isDayOrNight from "../../utils/isDayOrNight";
+import WeatherIcon from "../../components/weather-icon";
 import Caret from "../../assets/svgs/caret.svg?react";
 
 import styles from "./styles.module.css";
@@ -81,12 +81,12 @@ const DayNav = ({
               <span className="text-xl font-normal sca">
                 {getDay(d.timestamp)}
               </span>
-              <ReactSVG
-                src={getWeatherIcon(d.weather.id, d.timestamp)}
-                beforeInjection={(svg) => {
-                  svg.setAttribute("width", "35");
-                  svg.setAttribute("height", "35");
-                }}
+              <WeatherIcon
+                weatherId={d.weather.id}
+                timePrefix={isDayOrNight(d.timestamp)}
+                title={d.weather.description}
+                width="35"
+                height="35"
               />
             </div>
           </Carousel.Slide>

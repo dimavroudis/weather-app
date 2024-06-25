@@ -11,7 +11,6 @@ To start the project run `npm run dev`.
 - Manitine UI
 - Rechart.js
 - Day.js
-- ReactSvg
 - React Router
 
 ## Project structure

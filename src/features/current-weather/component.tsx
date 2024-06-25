@@ -1,8 +1,8 @@
-import { ReactSVG } from "react-svg";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
-import getWeatherIcon from "../../utils/getWeatherIcon";
+import isDayOrNight from "../../utils/isDayOrNight";
 import formatTemp from "../../utils/formatTemp";
+import WeatherIcon from "../../components/weather-icon";
 import Pin from "../../assets/svgs/pin.svg?react";
 import Caret from "../../assets/svgs/caret.svg?react";
 
@@ -36,7 +36,6 @@ const getDate = (timestamp: number) => {
 };
 
 const CurrentWeather = ({ current, location }: CurrentWeatherProps) => {
-  const weatherIcon = getWeatherIcon(current.weather.id, current.timestamp);
   const { day, date } = getDate(current.timestamp);
 
   return (
@@ -65,9 +64,10 @@ const CurrentWeather = ({ current, location }: CurrentWeatherProps) => {
           {current.weather.description}
         </span>
       </div>
-      <ReactSVG
-        src={weatherIcon}
-        desc={current.weather.description}
+      <WeatherIcon
+        weatherId={current.weather.id}
+        timePrefix={isDayOrNight(current.timestamp)}
+        title={current.weather.description}
         className={`${styles.icon} max-w-52 lg:max-w-xs flex items-center content-end`}
       />
       <div
