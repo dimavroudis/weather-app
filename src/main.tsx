@@ -2,7 +2,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 
 import "@mantine/core/styles.css";
-import "@mantine/charts/styles.css";
 import "@mantine/carousel/styles.css";
 
 import "./index.css";
@@ -47,6 +46,14 @@ const theme = createTheme({
     md: "1.25rem", //20
     lg: "1.875rem", //30
     xl: "2.5rem", //40
+  },
+  breakpoints: {
+    xs: "480px",
+    sm: "640px",
+    md: "768px",
+    lg: "1024px",
+    xl: "1280px",
+    "2xl": "1536px",
   },
 });
 
