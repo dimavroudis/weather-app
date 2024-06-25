@@ -1,9 +1,9 @@
+import dayjs from "dayjs";
+import { useMediaQuery } from "@mantine/hooks";
 import Widget from "../../components/widget";
 import ForecastData from "../../types/models/forecast";
-import dayjs from "dayjs";
-import { ReactSVG } from "react-svg";
 import Chart from "./chart";
-import { useMediaQuery } from "@mantine/hooks";
+import Clock from "../../assets/svgs/clock.svg?react";
 
 interface ForecastProps {
   title: string;
@@ -60,7 +60,7 @@ const HourlyForecast = ({
   return (
     <Widget className={`px-0 py-3 ${className}`}>
       <h2 className="flex items-center gap-xs mb-5 text-sm px-3 lg:px-8">
-        <ReactSVG src={"/svgs/clock.svg"} className="w-4 flex-shrink-0" />
+        <Clock className="w-4 flex-shrink-0" />
         {title}
       </h2>
       <div className="h-full flex justify-center items-center">

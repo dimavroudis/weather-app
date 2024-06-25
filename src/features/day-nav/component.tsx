@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { Carousel } from "@mantine/carousel";
 import dayjs from "dayjs";
 import { ReactSVG } from "react-svg";
 import ForecastData from "../../types/models/forecast";
 import getWeatherIcon from "../../utils/getWeatherIcon";
+import Caret from "../../assets/svgs/caret.svg?react";
+
 import styles from "./styles.module.css";
-import { useState } from "react";
 
 interface DayNavProps {
   currentTimestamp?: number;
@@ -57,20 +59,14 @@ const DayNav = ({
         onSlideChange={handleSlideChange}
         nextControlProps={{ "aria-label": "Next day" }}
         nextControlIcon={
-          <ReactSVG
-            src={"/svgs/caret-right-yellow.svg"}
-            beforeInjection={(svg) => {
-              svg.setAttribute("width", "11");
-            }}
-          />
+          <Caret width="11" height="11" className="text-primary-500" />
         }
         previousControlProps={{ "aria-label": "Previous day" }}
         previousControlIcon={
-          <ReactSVG
-            src={"/svgs/caret-left-yellow.svg"}
-            beforeInjection={(svg) => {
-              svg.setAttribute("width", "11");
-            }}
+          <Caret
+            width="11"
+            height="11"
+            className="text-primary-500 rotate-180"
           />
         }
         classNames={{

@@ -1,7 +1,11 @@
 import { ReactSVG } from "react-svg";
+import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import getWeatherIcon from "../../utils/getWeatherIcon";
 import formatTemp from "../../utils/formatTemp";
+import Pin from "../../assets/svgs/pin.svg?react";
+import Caret from "../../assets/svgs/caret.svg?react";
+
 import styles from "./styles.module.css";
 
 type CurrentWeatherProps = {
@@ -44,18 +48,13 @@ const CurrentWeather = ({ current, location }: CurrentWeatherProps) => {
           className={`${styles.location} flex justify-start items-center gap-xs`}
           role="button"
         >
-          <ReactSVG src={"/svgs/pin.svg"} className="w-4 m-2" />
+          <Pin className="w-4 m-2" />
           <span className="text-xl lg:text-2xl">{location.label}</span>
-          <ReactSVG
-            src={"/svgs/caret.svg"}
-            className="w-2 m-2 rotate-90 lg:rotate-0"
-          />
+          <Caret className="w-2 m-2 rotate-90 lg:rotate-0" />
         </div>
-        <img
-          src="/avatar.png"
-          alt="Avatar"
-          className="rounded-full w-8 lg:hidden"
-        />
+        <Link to="profile">
+          <img src="/avatar.png" className="rounded-full w-8 lg:hidden" />
+        </Link>
       </div>
       <div className={`${styles.status} text-center lg:text-left`}>
         <span className="text-2xl lg:text-4xl">

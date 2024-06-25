@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ReactSVG } from "react-svg";
 import dayjs from "dayjs";
 import ForecastData from "../../types/models/forecast";
 import Widget from "../../components/widget";
@@ -7,6 +6,11 @@ import formatTemp from "../../utils/formatTemp";
 import formatWindSpeed from "../../utils/formatWindSpeed";
 import formatPercentage from "../../utils/formatPercentage";
 import DayNav from "../day-nav";
+import Clock from "../../assets/svgs/clock-2.svg?react";
+import RealFeelIcon from "../../assets/svgs/real-feel.svg?react";
+import WindIcon from "../../assets/svgs/wind.svg?react";
+import HumidityIcon from "../../assets/svgs/humidity.svg?react";
+import UVIndexIcon from "../../assets/svgs/uv-index.svg?react";
 
 import styles from "./styles.module.css";
 
@@ -28,21 +32,15 @@ const findTodayTimestamp = (data: ForecastData[]) => {
 const InfoBlock = ({
   title,
   value,
-  icon,
+  Icon,
 }: {
   title: string;
   value?: string;
-  icon: string;
+  Icon: React.ElementType;
 }) => {
   return (
     <div className="flex items-start gap-xs">
-      <ReactSVG
-        src={`/svgs/${icon}.svg`}
-        beforeInjection={(svg) => {
-          svg.setAttribute("width", "25");
-          svg.setAttribute("height", "25"); // Optionally, set the height as well
-        }}
-      />
+      <Icon width="25" height="25" />
       <div className="mt-1">
         <p className="text-xs mb-1">{title}</p>
         <p className="text-base">{value}</p>
@@ -66,13 +64,7 @@ const AirCondition = ({ data, className = "" }: AirConditionProps) => {
           className="mb-4"
         />
         <div className="text-center text-base flex justify-center items-center gap-0.5">
-          <ReactSVG
-            src="/svgs/clock.svg"
-            beforeInjection={(svg) => {
-              svg.setAttribute("width", "14");
-              svg.setAttribute("height", "14");
-            }}
-          />
+          <Clock width="14" height="14" />
           {dayjs(currentTimestamp).format("H:MM Z")}
         </div>
       </div>
@@ -82,22 +74,22 @@ const AirCondition = ({ data, className = "" }: AirConditionProps) => {
           <InfoBlock
             title="Real Feel"
             value={currentData && formatTemp(currentData.feels_like)}
-            icon="real-feel"
+            Icon={RealFeelIcon}
           />
           <InfoBlock
             title="Wind"
             value={currentData && formatWindSpeed(currentData.wind_speed)}
-            icon="wind"
+            Icon={WindIcon}
           />
           <InfoBlock
             title="Chance of rain"
             value={currentData && formatPercentage(currentData.rain_percentage)}
-            icon="humidity"
+            Icon={HumidityIcon}
           />
           <InfoBlock
             title="UV Index"
             value={currentData?.uv_index?.toString()}
-            icon="uv-index"
+            Icon={UVIndexIcon}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { Card, Image, SimpleGrid } from "@mantine/core";
 import Widget from "../../components/widget";
-import { ReactSVG } from "react-svg";
+import Heart from "../../assets/svgs/heart.svg?react";
 
 type ActivitiesProps = {
   activities: {
@@ -14,10 +14,7 @@ const Activities = ({ activities, className = "" }: ActivitiesProps) => {
   return (
     <Widget className={`lg:px-8 px-3 ${className}`}>
       <h2 className="flex justify-start items-start gap-xs lg:text-2xl text-sm mb-9">
-        <ReactSVG
-          src={"/svgs/heart.svg"}
-          className="w-5 lg:w-8 flex-shrink-0"
-        />
+        <Heart className="w-5 lg:w-8 flex-shrink-0" />
         Activities in your area
       </h2>
       <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }} className="px-4">
