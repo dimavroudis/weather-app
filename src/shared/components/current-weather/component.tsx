@@ -39,10 +39,15 @@ const CurrentWeather = ({ current, location }: CurrentWeatherProps) => {
     <div
       className={`flex flex-col items-center font-medium gap-10 lg:grid ${styles.layout}`}
     >
-      <div className={`${styles.location} flex justify-start items-end gap-1`}>
+      <div
+        className={`${styles.location} flex justify-start items-center gap-1`}
+      >
         <ReactSVG src={"/svgs/pin.svg"} className="w-4 m-2" />
-        <span className="text-2xl">{location.label}</span>
-        <ReactSVG src={"/svgs/caret-right.svg"} className="w-4 m-2" />
+        <span className="text-xl lg:text-2xl">{location.label}</span>
+        <ReactSVG
+          src={"/svgs/caret.svg"}
+          className="w-2 m-2 rotate-90 lg:rotate-0"
+        />
       </div>
       <div className={`${styles.status} text-center lg:text-left`}>
         <span className="text-2xl lg:text-4xl">
