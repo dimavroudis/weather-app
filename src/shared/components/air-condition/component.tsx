@@ -63,7 +63,7 @@ const AirCondition = ({ data, className = "" }: AirConditionProps) => {
         currentTimestamp={currentTimestamp}
         onDayChange={setCurrentTimestamp}
       />
-      <p className="text-center text-base flex justify-center items-center gap-0.5 mt-4 mb-9">
+      <div className="text-center text-base flex justify-center items-center gap-0.5 mt-4 mb-9">
         <ReactSVG
           src="/svgs/clock.svg"
           beforeInjection={(svg) => {
@@ -72,7 +72,7 @@ const AirCondition = ({ data, className = "" }: AirConditionProps) => {
           }}
         />
         {dayjs(currentTimestamp).format("H:MM Z")}
-      </p>
+      </div>
       <h2 className="text-sm uppercase font-bold mb-5">Air Conditions</h2>
       <div className="flex flex-col gap-11">
         <InfoBlock
