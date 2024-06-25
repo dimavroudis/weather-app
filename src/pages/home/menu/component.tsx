@@ -36,7 +36,7 @@ const Menu = ({ className = "" }: MenuProps) => {
         to="profile"
         className="block hover:scale-90 transition-transform duration-300 ease-in-out"
       >
-        <img src="/avatar.png" alt="Avatar" className="rounded-full" />
+        <img src="/avatar.png" alt="User" className="rounded-full" />
       </Link>
       <nav className="flex flex-col gap-5">
         <MenuLink Icon={Weather} to="/">

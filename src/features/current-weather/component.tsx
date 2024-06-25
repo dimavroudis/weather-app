@@ -53,7 +53,11 @@ const CurrentWeather = ({ current, location }: CurrentWeatherProps) => {
           <Caret className="w-2 m-2 rotate-90 lg:rotate-0" />
         </div>
         <Link to="profile">
-          <img src="/avatar.png" className="rounded-full w-8 lg:hidden" />
+          <img
+            src="/avatar.png"
+            className="rounded-full w-8 lg:hidden"
+            alt="User"
+          />
         </Link>
       </div>
       <div className={`${styles.status} text-center lg:text-left`}>
