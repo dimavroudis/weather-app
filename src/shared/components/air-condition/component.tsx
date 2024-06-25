@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { ReactSVG } from "react-svg";
+import dayjs from "dayjs";
 import ForecastData from "../../interfaces/forecast";
 import Widget from "../widget";
-import dayjs from "dayjs";
 import formatTemp from "../../utils/formatTemp";
 import formatWindSpeed from "../../utils/formatWindSpeed";
 import formatPercentage from "../../utils/formatPercentage";
-import { ReactSVG } from "react-svg";
-import styles from "./styles.module.css";
 import DayNav from "../day-nav";
+
+import styles from "./styles.module.css";
 
 interface AirConditionProps {
   data: ForecastData[];
@@ -34,7 +35,7 @@ const InfoBlock = ({
   icon: string;
 }) => {
   return (
-    <div className="flex items-start gap-1">
+    <div className="flex items-start gap-xs">
       <ReactSVG
         src={`/svgs/${icon}.svg`}
         beforeInjection={(svg) => {
@@ -57,44 +58,48 @@ const AirCondition = ({ data, className = "" }: AirConditionProps) => {
 
   const currentData = data.find((d) => d.timestamp === currentTimestamp);
   return (
-    <Widget className={`${styles.background} h-full ${className}`}>
-      <DayNav
-        data={data}
-        currentTimestamp={currentTimestamp}
-        onDayChange={setCurrentTimestamp}
-      />
-      <div className="text-center text-base flex justify-center items-center gap-0.5 mt-4 mb-9">
-        <ReactSVG
-          src="/svgs/clock.svg"
-          beforeInjection={(svg) => {
-            svg.setAttribute("width", "14");
-            svg.setAttribute("height", "14");
-          }}
+    <Widget className={`h-full px-0 py-0 ${className} ${styles.background}`}>
+      <div className="mt-4 mb-9">
+        <DayNav
+          data={data}
+          onDayChange={setCurrentTimestamp}
+          className="mb-4"
         />
-        {dayjs(currentTimestamp).format("H:MM Z")}
+        <div className="text-center text-base flex justify-center items-center gap-0.5">
+          <ReactSVG
+            src="/svgs/clock.svg"
+            beforeInjection={(svg) => {
+              svg.setAttribute("width", "14");
+              svg.setAttribute("height", "14");
+            }}
+          />
+          {dayjs(currentTimestamp).format("H:MM Z")}
+        </div>
       </div>
-      <h2 className="text-sm uppercase font-bold mb-5">Air Conditions</h2>
-      <div className="flex flex-col gap-11">
-        <InfoBlock
-          title="Real Feel"
-          value={currentData && formatTemp(currentData.feels_like)}
-          icon="real-feel"
-        />
-        <InfoBlock
-          title="Wind"
-          value={currentData && formatWindSpeed(currentData.wind_speed)}
-          icon="wind"
-        />
-        <InfoBlock
-          title="Chance of rain"
-          value={currentData && formatPercentage(currentData.rain_percentage)}
-          icon="humidity"
-        />
-        <InfoBlock
-          title="UV Index"
-          value={currentData?.uv_index?.toString()}
-          icon="uv-index"
-        />
+      <div className="px-4">
+        <h2 className="text-sm uppercase font-bold mb-5">Air Conditions</h2>
+        <div className="flex flex-col gap-xl mb-11">
+          <InfoBlock
+            title="Real Feel"
+            value={currentData && formatTemp(currentData.feels_like)}
+            icon="real-feel"
+          />
+          <InfoBlock
+            title="Wind"
+            value={currentData && formatWindSpeed(currentData.wind_speed)}
+            icon="wind"
+          />
+          <InfoBlock
+            title="Chance of rain"
+            value={currentData && formatPercentage(currentData.rain_percentage)}
+            icon="humidity"
+          />
+          <InfoBlock
+            title="UV Index"
+            value={currentData?.uv_index?.toString()}
+            icon="uv-index"
+          />
+        </div>
       </div>
     </Widget>
   );

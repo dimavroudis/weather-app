@@ -3,11 +3,13 @@ import ForecastData from "../../interfaces/forecast";
 import dayjs from "dayjs";
 import { ReactSVG } from "react-svg";
 import Chart from "./chart";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface ForecastProps {
   title: string;
   data: ForecastData[];
   className?: string;
+  footer?: React.ReactNode;
 }
 
 const getNextPredictedTemp = (data: ForecastData[]) => {
@@ -26,31 +28,45 @@ const getPreviousPredictedTemp = (data: ForecastData[]) => {
   return firstTemp + diff;
 };
 
-const HourlyForecast = ({ title, data: _data, className }: ForecastProps) => {
+const HourlyForecast = ({
+  title,
+  data: _data,
+  className,
+  footer,
+}: ForecastProps) => {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
   const nextPredictedTemp = getNextPredictedTemp(_data);
   const previousPredictedTemp = getPreviousPredictedTemp(_data);
+
+  const visibleData = isDesktop ? _data.slice(0, 7) : _data.slice(0, 4);
 
   const data = [
     {
       temp: previousPredictedTemp,
-      timestamp: dayjs(_data[0].timestamp).subtract(30, "minute").valueOf(),
+      timestamp: dayjs(visibleData[0].timestamp)
+        .subtract(30, "minute")
+        .valueOf(),
     },
-    ..._data,
+    ...visibleData,
     {
       temp: nextPredictedTemp,
-      timestamp: dayjs(_data[_data.length - 1].timestamp)
+      timestamp: dayjs(visibleData[visibleData.length - 1].timestamp)
         .add(30, "minute")
         .valueOf(),
     },
   ];
 
   return (
-    <Widget px="0" className={className}>
-      <h2 className="flex items-center gap-1 mb-9 text-sm px-8">
+    <Widget className={`px-0 py-3 ${className}`}>
+      <h2 className="flex items-center gap-xs mb-5 text-sm px-3 lg:px-8">
         <ReactSVG src={"/svgs/clock.svg"} className="w-4 flex-shrink-0" />
         {title}
       </h2>
-      <Chart data={data} />
+      <div className="h-full flex justify-center items-center">
+        <Chart data={data} />
+      </div>
+      {footer}
     </Widget>
   );
 };

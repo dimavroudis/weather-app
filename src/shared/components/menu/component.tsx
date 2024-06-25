@@ -28,7 +28,7 @@ const Menu = ({ className = "" }: MenuProps) => {
     <Widget
       className={`flex flex-col justify-between h-full gap-8 ${className}`}
     >
-      <img src="/avatar.png" alt="Avatar" />
+      <img src="/avatar.png" alt="Avatar" className="rounded-full" />
       <nav className="flex flex-col gap-5">
         <MenuLink icon="weather">Weather</MenuLink>
         <MenuLink icon="explore">Explore</MenuLink>

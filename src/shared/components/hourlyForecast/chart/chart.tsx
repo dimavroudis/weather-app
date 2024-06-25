@@ -15,11 +15,11 @@ interface ChartProps {
   data: ForecastChartData[];
 }
 
-const chartMargins = { top: 60, right: 0, bottom: 100, left: 0 };
+const chartMargins = { top: 0, right: 0, bottom: 60, left: 0 };
 
 const Chart = ({ data }: ChartProps) => {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={200}>
       <LineChart data={data} margin={chartMargins}>
         <XAxis
           dataKey="timestamp"

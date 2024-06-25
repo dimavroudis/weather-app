@@ -35,7 +35,7 @@ const theme = createTheme({
   radius: {
     xs: "0.25rem", // 4
     sm: "0.625rem", //10
-    md: "1rem", //16
+    md: "1.25rem", //20
     lg: "1.875rem", //30
     xl: "2.5rem", //40
   },

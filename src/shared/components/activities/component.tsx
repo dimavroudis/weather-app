@@ -12,15 +12,15 @@ type ActivitiesProps = {
 
 const Activities = ({ activities, className = "" }: ActivitiesProps) => {
   return (
-    <Widget className={`px-8 ${className}`}>
-      <h2 className="flex justify-start items-start gap-1 lg:text-2xl text-sm mb-9">
+    <Widget className={`lg:px-8 px-3 ${className}`}>
+      <h2 className="flex justify-start items-start gap-xs lg:text-2xl text-sm mb-9">
         <ReactSVG
           src={"/svgs/heart.svg"}
           className="w-5 lg:w-8 flex-shrink-0"
         />
         Activities in your area
       </h2>
-      <SimpleGrid cols={{ base: 1, sm: 2, md: 4 }}>
+      <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }} className="px-4">
         {activities.map((activity) => (
           <Card
             key={activity.title}
