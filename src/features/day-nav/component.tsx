@@ -1,7 +1,7 @@
 import { Carousel } from "@mantine/carousel";
 import dayjs from "dayjs";
 import { ReactSVG } from "react-svg";
-import ForecastData from "../../interfaces/forecast";
+import ForecastData from "../../types/models/forecast";
 import getWeatherIcon from "../../utils/getWeatherIcon";
 import styles from "./styles.module.css";
 import { useState } from "react";

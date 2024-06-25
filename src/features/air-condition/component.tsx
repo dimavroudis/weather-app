@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { ReactSVG } from "react-svg";
 import dayjs from "dayjs";
-import ForecastData from "../../interfaces/forecast";
-import Widget from "../widget";
+import ForecastData from "../../types/models/forecast";
+import Widget from "../../components/widget";
 import formatTemp from "../../utils/formatTemp";
 import formatWindSpeed from "../../utils/formatWindSpeed";
 import formatPercentage from "../../utils/formatPercentage";

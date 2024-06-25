@@ -5,22 +5,22 @@
     "bottom side" 2fr / 1fr 25%;
 }
 
-.layout .location {
+.location {
   grid-area: top;
 }
 
-.layout .status {
+.status {
   grid-area: mid;
 }
 
-.layout .icon {
+.icon {
   grid-area: side;
 }
 
-.layout .icon svg {
+.icon svg {
   width: 100%;
 }
 
-.layout .temprature {
+.temprature {
   grid-area: bottom;
 }

@@ -3,19 +3,3 @@
 }
 @tailwind components;
 @tailwind utilities;
-
-/* Variables
-text-color: #FFFFFF
-primary-color : #EACA8F;
-
-font-family: Inter;
-font-weights: 400,500,600,700
-
-card-background: rgba(255, 255, 255, 0.27);
-card-border: 1px solid rgba(255, 255, 255, 0.21);
-card-border-radius: 40px;
-
-widget-gap: 20px 30px;
-
-
-*/

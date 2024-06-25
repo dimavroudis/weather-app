@@ -42,6 +42,7 @@ const CurrentWeather = ({ current, location }: CurrentWeatherProps) => {
       <div className={`flex w-full justify-between items-center gap-xs`}>
         <div
           className={`${styles.location} flex justify-start items-center gap-xs`}
+          role="button"
         >
           <ReactSVG src={"/svgs/pin.svg"} className="w-4 m-2" />
           <span className="text-xl lg:text-2xl">{location.label}</span>

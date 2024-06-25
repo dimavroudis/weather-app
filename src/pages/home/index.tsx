@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Button, Container, Stack } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import CurrentWeather from "../../shared/components/current-weather";
-import Activities from "../../shared/components/activities";
-import AirCondition from "../../shared/components/air-condition";
-import HourlyForecast from "../../shared/components/hourlyForecast";
-import Menu from "../../shared/components/menu";
-import WeatherReport from "../../shared/interfaces/weatherReport";
+import CurrentWeather from "../../features/current-weather";
+import Activities from "../../features/activities";
+import AirCondition from "../../features/air-condition";
+import HourlyForecast from "../../features/hourlyForecast";
+import Menu from "./menu";
+import WeatherReport from "../../types/models/weatherReport";
 import { DATA } from "./data";
 
 import styles from "./styles.module.css";
-import DayNav from "../../shared/components/day-nav";
+import DayNav from "../../features/day-nav";
 
 const getBackground = (id: string) => {
   return `/weather-bgs/${id}.jpg`;

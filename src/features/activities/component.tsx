@@ -1,5 +1,5 @@
 import { Card, Image, SimpleGrid } from "@mantine/core";
-import Widget from "../widget";
+import Widget from "../../components/widget";
 import { ReactSVG } from "react-svg";
 
 type ActivitiesProps = {

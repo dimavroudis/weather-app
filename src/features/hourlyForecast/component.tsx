@@ -1,5 +1,5 @@
-import Widget from "../widget";
-import ForecastData from "../../interfaces/forecast";
+import Widget from "../../components/widget";
+import ForecastData from "../../types/models/forecast";
 import dayjs from "dayjs";
 import { ReactSVG } from "react-svg";
 import Chart from "./chart";
