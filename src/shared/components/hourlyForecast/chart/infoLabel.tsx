@@ -1,10 +1,10 @@
 import { LabelProps } from "recharts";
 import dayjs from "dayjs";
 import getWeatherIcon from "../../../utils/getWeatherIcon";
-import SeriesData from "../seriesData";
 import formatWindSpeed from "../../../utils/formatWindSpeed";
+import ForecastChartData from "./forecastChartData";
 
-const InfoLabel = (props: LabelProps, data: SeriesData[]) => {
+const InfoLabel = (props: LabelProps, data: ForecastChartData[]) => {
   const { x, y, index, stroke } = props;
 
   if (
@@ -15,7 +15,7 @@ const InfoLabel = (props: LabelProps, data: SeriesData[]) => {
     return null;
   }
 
-  const newY = Number(y) + 60;
+  const newY = Number(y) + 100;
   const { weather, wind_speed, timestamp } = data[index];
   if (!weather || !timestamp || !wind_speed) {
     return null;

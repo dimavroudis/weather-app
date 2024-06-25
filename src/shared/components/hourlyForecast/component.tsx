@@ -1,27 +1,16 @@
-import {
-  LineChart,
-  Line,
-  LabelList,
-  ResponsiveContainer,
-  XAxis,
-} from "recharts";
 import Widget from "../widget";
-import InfoLabel from "./labels/infoLabel";
-import TempLabel from "./labels/tempLabel";
 import ForecastData from "../../interfaces/forecast";
-import SeriesData from "./seriesData";
 import dayjs from "dayjs";
 import { ReactSVG } from "react-svg";
+import Chart from "./chart";
 
 interface ForecastProps {
   title: string;
-  data: (Partial<Omit<ForecastData, "temp">> & Pick<ForecastData, "temp">)[];
+  data: ForecastData[];
   className?: string;
 }
 
-const chartMargins = { top: 60, right: 0, bottom: 60, left: 0 };
-
-const getNextPredictedTemp = (data: SeriesData[]) => {
+const getNextPredictedTemp = (data: ForecastData[]) => {
   const lastTemp = data[data.length - 1].temp;
   const lastLastTemp = data[data.length - 2].temp;
   const diff = lastTemp - lastLastTemp;
@@ -29,7 +18,7 @@ const getNextPredictedTemp = (data: SeriesData[]) => {
   return lastTemp + diff;
 };
 
-const getPreviousPredictedTemp = (data: SeriesData[]) => {
+const getPreviousPredictedTemp = (data: ForecastData[]) => {
   const firstTemp = data[0].temp;
   const firstFirstTemp = data[1].temp;
   const diff = firstTemp - firstFirstTemp;
@@ -58,43 +47,10 @@ const HourlyForecast = ({ title, data: _data, className }: ForecastProps) => {
   return (
     <Widget px="0" className={className}>
       <h2 className="flex items-center gap-1 mb-9 text-sm px-8">
-        <ReactSVG src={"/svgs/clock.svg"} className="w-4" />
+        <ReactSVG src={"/svgs/clock.svg"} className="w-4 flex-shrink-0" />
         {title}
       </h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={data} margin={chartMargins}>
-          <XAxis
-            dataKey="timestamp"
-            type="number"
-            domain={["dataMin", "dataMax"]}
-            tickLine={false}
-            axisLine={false}
-            tick={false}
-          />
-          <Line
-            type="monotone"
-            dataKey="temp"
-            stroke="#EACA8F"
-            strokeWidth="2"
-            dot={false}
-            activeDot={{
-              r: 5,
-              fill: "white",
-              stroke: "white",
-              strokeWidth: 0,
-            }}
-          >
-            <LabelList
-              stroke="#fff"
-              content={(props) => TempLabel(props, data)}
-            />
-            <LabelList
-              stroke="#fff"
-              content={(props) => InfoLabel(props, data)}
-            />
-          </Line>
-        </LineChart>
-      </ResponsiveContainer>
+      <Chart data={data} />
     </Widget>
   );
 };

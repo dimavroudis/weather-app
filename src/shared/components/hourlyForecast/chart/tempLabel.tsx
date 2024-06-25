@@ -1,8 +1,8 @@
 import { LabelProps } from "recharts";
 import formatTemp from "../../../utils/formatTemp";
-import SeriesData from "../seriesData";
+import ForecastChartData from "./forecastChartData";
 
-const TempLabel = (props: LabelProps, data: SeriesData[]) => {
+const TempLabel = (props: LabelProps, data: ForecastChartData[]) => {
   const { x, y, value, index, stroke } = props;
 
   const newY = y ? Number(y) - 6 : -6;
