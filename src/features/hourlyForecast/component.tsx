@@ -36,6 +36,10 @@ const HourlyForecast = ({
 }: ForecastProps) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
+  if (!_data.length) {
+    return null;
+  }
+
   const nextPredictedTemp = getNextPredictedTemp(_data);
   const previousPredictedTemp = getPreviousPredictedTemp(_data);
 

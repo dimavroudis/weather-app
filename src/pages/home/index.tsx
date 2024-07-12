@@ -1,24 +1,60 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button, Container, Stack } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+// import { useMediaQuery } from "@mantine/hooks";
 import CurrentWeather from "../../features/current-weather";
 import Activities from "../../features/activities";
 import AirCondition from "../../features/air-condition";
 import HourlyForecast from "../../features/hourlyForecast";
 import Menu from "./menu";
 import WeatherReport from "../../types/models/weatherReport";
-import { DATA } from "./data";
 
 import styles from "./styles.module.css";
 import DayNav from "../../features/day-nav";
+import { api } from "../../api/api";
+import ForecastData from "../../types/models/forecast";
 
 const getBackground = (id: string) => {
   return `/weather-bgs/${id}.jpg`;
 };
 
+const isDesktop = true;
+
 const Home = () => {
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const [data] = useState<WeatherReport>(DATA);
+  // const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const [data, setData] = useState<WeatherReport>({
+    location: {
+      label: "New York",
+    },
+    current: {
+      temp: 36,
+      feels_like: 36,
+      uv_index: 4,
+      rain_percentage: 0.02,
+      wind_speed: 0.8,
+      weather: {
+        description: "Cloudy",
+        id: "cloudy",
+      },
+      timestamp: 0,
+    },
+    hourly_forecast: [],
+    daily_forecast: [],
+    activities: [],
+  });
+
+  const [dailyData, setDailyData] = useState<ForecastData[]>([]);
+  const [hourlyData, setHourlyData] = useState<ForecastData[]>([]);
+
+  const getData = useCallback(() => {
+    Promise.all([api.getDaily(), api.getHourly()]).then(([daily, hourly]) => {
+      setDailyData(daily);
+      setHourlyData(hourly);
+    });
+  }, []);
+
+  useEffect(() => {
+    getData();
+  });
 
   const backgroundImage = getBackground(data.current.weather.id);
 
@@ -30,13 +66,13 @@ const Home = () => {
       style={{ backgroundImage: `url("${backgroundImage}")` }}
     >
       <div className="lg:px-14 mb-8 lg:mb-sm ">
-        <CurrentWeather current={data.current} location={data.location} />
+        {hourlyData.length ? (
+          <CurrentWeather current={hourlyData[0]} location={data.location} />
+        ) : null}
       </div>
 
       {isDesktop ? null : (
-        <div className="mb-8">
-          <DayNav data={data.daily_forecast} />
-        </div>
+        <div className="mb-8">{/* <DayNav data={dailyData} /> */}</div>
       )}
 
       <div
@@ -51,7 +87,7 @@ const Home = () => {
           <Stack gap="lg" className="lg:h-full">
             <HourlyForecast
               title={"24-hour forecast"}
-              data={data.hourly_forecast}
+              data={hourlyData}
               className="lg:order-2 lg:h-full"
               footer={
                 isDesktop ? null : (
@@ -68,14 +104,14 @@ const Home = () => {
                 )
               }
             />
-            <Activities
+            {/* <Activities
               activities={data.activities}
               className="lg:order-1 flex-shrink-0"
-            />
+            /> */}
           </Stack>
         </div>
         <div className={`${styles.side}`}>
-          <AirCondition data={data.daily_forecast} />
+          <AirCondition data={dailyData} />
         </div>
       </div>
     </Container>
