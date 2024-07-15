@@ -20,6 +20,16 @@ const getDay = (timestamp: number) => {
   return date.toLocaleDateString("en-US", { weekday: "short" });
 };
 
+const findCurrentIndex = (data: ForecastData[], timestamp: number) => {
+  const index = data.findIndex((d) =>
+    dayjs(d.timestamp).isSame(dayjs(timestamp), "day")
+  );
+  if (index === -1) {
+    return 0;
+  }
+  return index;
+};
+
 const DayNav = ({
   data,
   currentTimestamp,
@@ -27,12 +37,15 @@ const DayNav = ({
   className,
 }: DayNavProps) => {
   const defaultActiveSlide = currentTimestamp
-    ? data.findIndex((d) => d.timestamp === currentTimestamp)
-    : data.findIndex((d) => dayjs(d.timestamp).isSame(dayjs(), "day"));
+    ? findCurrentIndex(data, currentTimestamp)
+    : 0;
 
   const [activeSlide, setActiveSlide] = useState(defaultActiveSlide);
 
   const handleSlideChange = (index: number) => {
+    if (index === activeSlide && !data[index]) {
+      return;
+    }
     setActiveSlide(index);
     if (onDayChange) {
       onDayChange(data[index].timestamp);

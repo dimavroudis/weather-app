@@ -15,7 +15,7 @@ interface ChartProps {
   data: ForecastChartData[];
 }
 
-const chartMargins = { top: 0, right: 0, bottom: 60, left: 0 };
+const chartMargins = { top: 30, right: 0, bottom: 65, left: 0 };
 
 const Chart = ({ data }: ChartProps) => {
   return (

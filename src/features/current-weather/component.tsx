@@ -36,7 +36,10 @@ const getDate = (timestamp: number) => {
 };
 
 const CurrentWeather = ({ current, location }: CurrentWeatherProps) => {
-  const { day, date } = getDate(current.timestamp);
+  const { temp, weather, timestamp } = current || {};
+  const { description, id } = weather || {};
+
+  const { day, date } = getDate(timestamp);
 
   return (
     <div
@@ -48,7 +51,7 @@ const CurrentWeather = ({ current, location }: CurrentWeatherProps) => {
           role="button"
         >
           <Pin className="w-4 m-2" />
-          <span className="text-xl lg:text-2xl">{location.label}</span>
+          <span className="text-xl lg:text-2xl">{location.label || "..."}</span>
           <Caret className="w-2 m-2 rotate-90 lg:rotate-0" />
         </div>
         <Link to="profile">
@@ -60,20 +63,18 @@ const CurrentWeather = ({ current, location }: CurrentWeatherProps) => {
         </Link>
       </div>
       <div className={`${styles.status} text-center lg:text-left`}>
-        <span className="text-2xl lg:text-4xl">
-          {current.weather.description}
-        </span>
+        <span className="text-2xl lg:text-4xl">{description || "..."}</span>
       </div>
       <WeatherIcon
-        weatherId={current.weather.id}
-        timePrefix={isDayOrNight(current.timestamp)}
-        title={current.weather.description}
+        weatherId={id}
+        timePrefix={isDayOrNight(timestamp)}
+        title={description}
         className={`${styles.icon} max-w-52 lg:max-w-xs flex items-center content-end`}
       />
       <div
         className={`${styles.temprature} flex justify-end flex-col text-center lg:text-left`}
       >
-        <p className="text-5xl mb-1">{formatTemp(current.temp)}</p>
+        <p className="text-5xl mb-1">{temp ? formatTemp(temp) : "..."}</p>
         <p className="text-lg font-normal">
           {day} | {date}
         </p>

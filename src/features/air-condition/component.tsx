@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import ForecastData from "../../types/models/forecast";
 import Widget from "../../components/widget";
@@ -18,16 +18,6 @@ interface AirConditionProps {
   data: ForecastData[];
   className?: string;
 }
-
-const findTodayTimestamp = (data: ForecastData[]) => {
-  const currentData = data.find((d) =>
-    dayjs(d.timestamp).isSame(dayjs(), "day")
-  );
-  if (!currentData) {
-    return;
-  }
-  return currentData.timestamp;
-};
 
 const InfoBlock = ({
   title,
@@ -56,14 +46,18 @@ const AirCondition = ({ data, className = "" }: AirConditionProps) => {
 
   const currentData = data.find((d) => d.timestamp === currentTimestamp);
 
+  useEffect(() => {
+    setCurrentTimestamp(data[0]?.timestamp);
+  }, [data]);
+
   return (
     <Widget className={`h-full px-0 py-0 ${className} ${styles.background}`}>
       <div className="mt-4 mb-9">
-        {/* <DayNav
+        <DayNav
           data={data}
           onDayChange={setCurrentTimestamp}
           className="mb-4"
-        /> */}
+        />
         <div className="text-center text-base flex justify-center items-center gap-0.5">
           <Clock width="14" height="14" />
           {dayjs(currentTimestamp).format("H:MM Z")}
@@ -84,9 +78,7 @@ const AirCondition = ({ data, className = "" }: AirConditionProps) => {
           />
           <InfoBlock
             title="Chance of rain"
-            value={
-              currentData && formatPercentage(currentData.rain_percentage / 100)
-            }
+            value={currentData && formatPercentage(currentData.rain_percentage)}
             Icon={HumidityIcon}
           />
           <InfoBlock

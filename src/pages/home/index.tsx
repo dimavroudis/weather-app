@@ -1,62 +1,42 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Stack } from "@mantine/core";
-// import { useMediaQuery } from "@mantine/hooks";
+import { useMediaQuery } from "@mantine/hooks";
 import CurrentWeather from "../../features/current-weather";
 import Activities from "../../features/activities";
 import AirCondition from "../../features/air-condition";
 import HourlyForecast from "../../features/hourlyForecast";
 import Menu from "./menu";
-import WeatherReport from "../../types/models/weatherReport";
+import DayNav from "../../features/day-nav";
+import ForecastData from "../../types/models/forecast";
+import { api } from "../../api/api";
+import getWeatherBg from "../../utils/getWeatherBg";
+
+import { DATA } from "./data";
 
 import styles from "./styles.module.css";
-import DayNav from "../../features/day-nav";
-import { api } from "../../api/api";
-import ForecastData from "../../types/models/forecast";
-
-const getBackground = (id: string) => {
-  return `/weather-bgs/${id}.jpg`;
-};
-
-const isDesktop = true;
 
 const Home = () => {
-  // const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const [data, setData] = useState<WeatherReport>({
-    location: {
-      label: "New York",
-    },
-    current: {
-      temp: 36,
-      feels_like: 36,
-      uv_index: 4,
-      rain_percentage: 0.02,
-      wind_speed: 0.8,
-      weather: {
-        description: "Cloudy",
-        id: "cloudy",
-      },
-      timestamp: 0,
-    },
-    hourly_forecast: [],
-    daily_forecast: [],
-    activities: [],
-  });
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const location = {
+    label: "New York",
+  };
+  const activities = DATA.activities;
 
   const [dailyData, setDailyData] = useState<ForecastData[]>([]);
   const [hourlyData, setHourlyData] = useState<ForecastData[]>([]);
+  const [currentData, setCurrentData] = useState<ForecastData>();
 
-  const getData = useCallback(() => {
-    Promise.all([api.getDaily(), api.getHourly()]).then(([daily, hourly]) => {
-      setDailyData(daily);
-      setHourlyData(hourly);
+  useEffect(() => {
+    api.getDaily().then((data) => {
+      setDailyData(data);
+    });
+    api.getHourly().then((data) => {
+      setHourlyData(data);
+      setCurrentData(data[0]);
     });
   }, []);
 
-  useEffect(() => {
-    getData();
-  });
-
-  const backgroundImage = getBackground(data.current.weather.id);
+  const backgroundImage = getWeatherBg(currentData?.weather.id);
 
   return (
     <Container
@@ -66,13 +46,11 @@ const Home = () => {
       style={{ backgroundImage: `url("${backgroundImage}")` }}
     >
       <div className="lg:px-14 mb-8 lg:mb-sm ">
-        {hourlyData.length ? (
-          <CurrentWeather current={hourlyData[0]} location={data.location} />
-        ) : null}
+        <CurrentWeather current={hourlyData[0]} location={location} />
       </div>
 
       {isDesktop ? null : (
-        <div className="mb-8">{/* <DayNav data={dailyData} /> */}</div>
+        <div className="mb-8">{<DayNav data={dailyData} />}</div>
       )}
 
       <div
@@ -104,10 +82,10 @@ const Home = () => {
                 )
               }
             />
-            {/* <Activities
-              activities={data.activities}
+            <Activities
+              activities={activities}
               className="lg:order-1 flex-shrink-0"
-            /> */}
+            />
           </Stack>
         </div>
         <div className={`${styles.side}`}>

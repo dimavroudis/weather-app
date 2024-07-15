@@ -13,6 +13,9 @@ interface ForecastProps {
 }
 
 const getNextPredictedTemp = (data: ForecastData[]) => {
+  if (data.length < 2) {
+    return data[0].temp;
+  }
   const lastTemp = data[data.length - 1].temp;
   const lastLastTemp = data[data.length - 2].temp;
   const diff = lastTemp - lastLastTemp;
@@ -21,6 +24,9 @@ const getNextPredictedTemp = (data: ForecastData[]) => {
 };
 
 const getPreviousPredictedTemp = (data: ForecastData[]) => {
+  if (data.length < 2) {
+    return data[0].temp;
+  }
   const firstTemp = data[0].temp;
   const firstFirstTemp = data[1].temp;
   const diff = firstTemp - firstFirstTemp;
@@ -30,36 +36,32 @@ const getPreviousPredictedTemp = (data: ForecastData[]) => {
 
 const HourlyForecast = ({
   title,
-  data: _data,
+  data: _data = [],
   className,
   footer,
 }: ForecastProps) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  if (!_data.length) {
-    return null;
-  }
-
-  const nextPredictedTemp = getNextPredictedTemp(_data);
-  const previousPredictedTemp = getPreviousPredictedTemp(_data);
-
   const visibleData = isDesktop ? _data.slice(0, 7) : _data.slice(0, 4);
 
-  const data = [
-    {
-      temp: previousPredictedTemp,
-      timestamp: dayjs(visibleData[0].timestamp)
-        .subtract(30, "minute")
-        .valueOf(),
-    },
-    ...visibleData,
-    {
-      temp: nextPredictedTemp,
-      timestamp: dayjs(visibleData[visibleData.length - 1].timestamp)
-        .add(30, "minute")
-        .valueOf(),
-    },
-  ];
+  const data =
+    _data.length > 0
+      ? [
+          {
+            temp: getPreviousPredictedTemp(_data),
+            timestamp: dayjs(visibleData[0].timestamp)
+              .subtract(30, "minute")
+              .valueOf(),
+          },
+          ...visibleData,
+          {
+            temp: getNextPredictedTemp(_data),
+            timestamp: dayjs(visibleData[visibleData.length - 1].timestamp)
+              .add(30, "minute")
+              .valueOf(),
+          },
+        ]
+      : null;
 
   return (
     <Widget className={`px-0 py-3 ${className}`}>
@@ -68,7 +70,7 @@ const HourlyForecast = ({
         {title}
       </h2>
       <div className="h-full flex justify-center items-center">
-        <Chart data={data} />
+        {data && <Chart data={data} />}
       </div>
       {footer}
     </Widget>
